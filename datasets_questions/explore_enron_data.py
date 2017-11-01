@@ -18,5 +18,8 @@
 import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
+with open('../final_project/poi_names.txt') as f:
+	print (sum(1 for _ in f))
+print(enron_data['SKILLING JEFFREY K'])
 
 
