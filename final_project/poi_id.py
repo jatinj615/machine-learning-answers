@@ -17,6 +17,18 @@ with open("final_project_dataset.pkl", "r") as data_file:
     data_dict = pickle.load(data_file)
 
 ### Task 2: Remove outliers
+data_dict.pop('TOTAL',0)
+outliers = []
+for key in data_dict:
+    val = data_dict[key]['salary']
+    if val == 'NaN':
+        continue 
+    
+    outliers.append((key,int(val)))
+    
+outliers_final = (sorted(outliers,key=lambda x:x[1],reverse=True)[:4])
+
+
 ### Task 3: Create new feature(s)
 ### Store to my_dataset for easy export below.
 my_dataset = data_dict
