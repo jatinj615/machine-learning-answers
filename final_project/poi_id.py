@@ -30,6 +30,26 @@ outliers_final = (sorted(outliers,key=lambda x:x[1],reverse=True)[:4])
 
 
 ### Task 3: Create new feature(s)
+def newFeature(first, second):
+    new_list = []
+    for i in data_dict:
+        if data_dict[i][first] == "NaN" or data_dict[i][second] == "NaN":
+            new_list.append(0.)
+        elif data_dict[i][first] >= 0:
+            new_list.append(float(data_dict[i][first])/float(data_dict[i][second]))
+    return new_list
+
+fraction_from_poi_email = newFeature("from_poi_to_this_person", "to_messages")
+fraction_to_poi_email = newFeature("from_this_person_to_poi", "from_messages")
+
+count = 0
+for i in data_dict:
+    data_dict[i]["fraction_from_poi_email"] = fraction_from_poi_email[count]
+    data_dict[i]["fraction_to_poi_email"] = fraction_to_poi_email[count]
+    count += 1
+
+features_list = ['poi', 'fraction_from_poi_email', 'fraction_to_poi_email']
+
 ### Store to my_dataset for easy export below.
 my_dataset = data_dict
 
