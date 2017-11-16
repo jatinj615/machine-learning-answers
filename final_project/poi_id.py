@@ -65,7 +65,7 @@ labels, features = targetFeatureSplit(data)
 
 # Provided to give you a starting point. Try a variety of classifiers.
 from sklearn.tree import DecisionTreeClassifier
-clf = d(min_samples_split=0.1, criterion="entropy", splitter="best")
+clf = DecisionTreeClassifier(min_samples_split=0.1, criterion="entropy", splitter="best")
 
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall 
@@ -77,8 +77,21 @@ clf = d(min_samples_split=0.1, criterion="entropy", splitter="best")
 
 # Example starting point. Try investigating other evaluation techniques!
 from sklearn.cross_validation import train_test_split
-features_train, features_test, labels_train, labels_test = \
-    train_test_split(features, labels, test_size=0.3, random_state=42)
+from sklearn.metrics import accuracy_score , precision_score, recall_score
+
+
+
+features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size=0.3, random_state=42)
+clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
+importance = clf.feature_importances_
+
+print(accuracy_score(pred, labels_test))
+print(precision_score(labels_test, pred))
+print(recall_score(labels_test, pred))
+print('feature importance: ')
+for item in importance:
+    print(item)
 
 ### Task 6: Dump your classifier, dataset, and features_list so anyone can
 ### check your results. You do not need to change anything below, but make sure
